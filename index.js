@@ -2,7 +2,6 @@
 const { urlencoded, json } = require("express");
 const express = require("express");
 const app = express();
-// const { v4: uuidv4 } = require("uuid");
 const cors = require("cors");
 // import dotenv
 require("dotenv").config();
