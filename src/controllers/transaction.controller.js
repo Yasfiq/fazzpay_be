@@ -1,6 +1,6 @@
 const transactionModel = require("../models/transaction.model");
 const userModel = require("../models/user.model");
-const core = require("../helpers/midtrans");
+// const core = require("../helpers/midtrans");
 
 const transactionController = {
   transfer: (req, res) => {
@@ -73,24 +73,24 @@ const transactionController = {
       ...req.body,
       user_id: req.params.id,
     };
-    core.charge(request).then((chargeResponse) => {
-      console.log("chargeResponse:");
-      console.log(chargeResponse);
-      return res.send(chargeResponse);
-    });
-    // return transactionModel
-    //   .topup(request)
-    //   .then((result) => {
-    //     return res.send({
-    //       Message: "Success request to server!",
-    //       Data: result,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     return res.status(400).send({
-    //       Error: error,
-    //     });
-    //   });
+    // core.charge(request).then((chargeResponse) => {
+    //   console.log("chargeResponse:");
+    //   console.log(chargeResponse);
+    //   return res.send(chargeResponse);
+    // });
+    return transactionModel
+      .topup(request)
+      .then((result) => {
+        return res.send({
+          Message: "Success request to server!",
+          Data: result,
+        });
+      })
+      .catch((error) => {
+        return res.status(400).send({
+          Error: error,
+        });
+      });
   },
 };
 
