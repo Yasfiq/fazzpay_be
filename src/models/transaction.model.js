@@ -19,12 +19,12 @@ const transactionModel = {
     return new Promise((success, failed) => {
       db.query(
         `UPDATE wallets SET balance=balance - $1 WHERE user_id=$2`,
-        [nominal, user_id],
+        [parseInt(nominal), user_id],
         (err) => {
           if (err) return failed(err.message);
           db.query(
             `UPDATE wallets SET balance= balance + $1 WHERE user_id=$2`,
-            [nominal, receiver_id],
+            [parseInt(nominal), receiver_id],
             (recErr) => {
               if (recErr) return failed(recErr.message);
               db.query(
@@ -91,7 +91,7 @@ const transactionModel = {
         if (res.rows.length === 0) return failed("Id not found!");
         db.query(
           `UPDATE wallets SET balance=balance + $1 WHERE user_id=$2`,
-          [nominal, id],
+          [parseInt(nominal), id],
           (error) => {
             if (error) return failed(error.message);
             return success("Topup Success!");

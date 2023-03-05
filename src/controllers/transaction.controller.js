@@ -71,7 +71,8 @@ const transactionController = {
   topup: (req, res) => {
     const request = {
       ...req.body,
-      user_id: req.params.id,
+      id: req.params.id,
+      // user_id: req.params.id,
     };
     // core.charge(request).then((chargeResponse) => {
     //   console.log("chargeResponse:");
