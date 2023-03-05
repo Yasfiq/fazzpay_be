@@ -4,7 +4,8 @@ const { validationResult } = require("express-validator");
 // eslint-disable-next-line no-undef
 const { SECRET_KEY } = process.env;
 const jwt = require("jsonwebtoken");
-const passwordValidator = require("../../helpers/passwordValidator");
+const passwordValidator = require("../helpers/passwordValidator");
+const sendOTP = require("../helpers/sendOTP");
 
 const authController = {
   register: (req, res) => {
@@ -35,7 +36,8 @@ const authController = {
         .then((result) => {
           res.status(201).send({
             Message: "Success request to server!",
-            Data: result,
+            Data: `Success Register!`,
+            Otp: result,
           });
         })
         .catch((error) => {
@@ -65,8 +67,10 @@ const authController = {
                 token,
                 id: result.id,
                 username: result.username,
-                profile_image: result.profile_image,
+                profile_image: result.image,
                 email: result.email,
+                active: result.active,
+                phone_number: result.phone_number,
               },
             });
           }
@@ -77,6 +81,39 @@ const authController = {
           Error: error,
         });
       });
+  },
+  sendOTP: (req, res) => {
+    console.log(req.body.phone_number);
+    let newPhone = "";
+    if (req.body.phone_number[0] == 0) {
+      for (let i = 0; i < req.body.phone_number.length; i++) {
+        if (i == 0) {
+          newPhone += "+62";
+        } else {
+          newPhone += req.body.phone_number[i];
+        }
+      }
+    } else {
+      newPhone += req.body.phone_number;
+    }
+    return sendOTP(newPhone)
+      .then((result) => res.send({ otp: result }))
+      .catch((err) => res.status(500).send({ Error: err }));
+  },
+  activated: (req, res) => {
+    return authModel
+      .activated(req.body.email)
+      .then((result) =>
+        res.send({
+          Message: "Success request to server!",
+          Data: result,
+        })
+      )
+      .catch((err) =>
+        res.status(500).send({
+          Error: err,
+        })
+      );
   },
 };
 
