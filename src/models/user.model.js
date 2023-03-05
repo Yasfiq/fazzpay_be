@@ -19,7 +19,7 @@ const userModel = {
   getUserById: (id) => {
     return new Promise((success, failed) => {
       db.query(
-        `SELECT u.id,u.username,u.email,u.phone_number,u.profile_image,w.balance FROM users AS u INNER JOIN wallets AS w ON u.id=$1 AND w.user_id=$1`,
+        `SELECT u.id,u.username,u.email,u.phone_number,u.image,w.balance FROM users AS u INNER JOIN wallets AS w ON u.id=$1 AND w.user_id=$1`,
         [id],
         (error, result) => {
           if (error) return failed(error.message);
