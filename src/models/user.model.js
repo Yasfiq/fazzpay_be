@@ -6,7 +6,7 @@ const userModel = {
   getUser: function (queryParams) {
     return new Promise((success, failed) => {
       db.query(
-        `SELECT u.id, username, phone_number, profile_image, w.balance FROM users AS u INNER JOIN wallets AS w ON u.id=w.user_id ${this.search(
+        `SELECT u.id, username, phone_number, image, w.balance FROM users AS u INNER JOIN wallets AS w ON u.id=w.user_id ${this.search(
           queryParams.search
         )} ORDER BY username ASC`,
         (err, res) => {
