@@ -54,6 +54,7 @@ const userController = {
           });
       });
     } else {
+      console.log(req.file);
       const request = {
         ...req.body,
         image: req.file,
