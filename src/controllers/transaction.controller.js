@@ -16,15 +16,16 @@ const transactionController = {
           userModel
             .getUserById(req.params.id)
             .then((recRes) => {
+              console.log(recRes);
               const request = {
                 ...req.body,
                 username: userRes.username,
-                user_image: userRes.profile_image,
+                user_image: userRes.image,
                 user_phone: userRes.phone_number,
                 receiver_id: req.params.id,
                 phone_number: recRes.phone_number,
                 subject_name: recRes.username,
-                subject_image: recRes.profile_image,
+                subject_image: recRes.image,
               };
               return transactionModel
                 .transfer(request)
