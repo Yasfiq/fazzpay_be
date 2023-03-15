@@ -29,17 +29,19 @@ const userModel = {
       );
     });
   },
-  edit: ({ id, pin_number, phone_number, image }) => {
+  edit: ({ id, pin_number, phone_number, image, email, username }) => {
     return new Promise((success, failed) => {
       db.query(`SELECT * FROM users WHERE id=$1`, [id], (error, result) => {
         if (error) return failed(error.message);
         if (result.rows.length === 0) return failed("Id not found!");
         db.query(
-          `UPDATE users SET pin_number=$1,phone_number=$2,image=$3 WHERE id=$4`,
+          `UPDATE users SET pin_number=$1,phone_number=$2,image=$3,email=$4,username=$5 WHERE id=$6`,
           [
             pin_number || result.rows[0].pin_number,
             phone_number || result.rows[0].phone_number,
             image ? image.filename : result.rows[0].image,
+            email || result.rows[0].email,
+            username || result.rows[0].username,
             id,
           ],
           (err) => {
