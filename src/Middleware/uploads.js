@@ -44,6 +44,7 @@ const formUploadOnline = multer({
       cb("Format file is not supported!", false);
     }
   },
+  limits: { fieldSize: 25 * 1024 * 1024 },
   // limits: {
   //   fileSize: 1048576 * 5, //2 mb
   // },
