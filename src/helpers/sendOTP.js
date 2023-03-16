@@ -13,7 +13,7 @@ const sendOTP = (phone_number) => {
   return client.messages
     .create({
       body: `Your OTP code is : ${otp}`,
-      from: "whatsapp:+14155238886",
+      from: "whatsapp:+12708195172",
       to: `whatsapp:${phone_number}`,
     })
     .then((message) => otp)
