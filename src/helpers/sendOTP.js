@@ -7,7 +7,7 @@ const sendOTP = (phone_number) => {
     specialChars: false,
   });
   const accountSid = "AC8ae8b147362013aebfed2f0abb7c1fb3";
-  const authToken = "d040899eba3ee4daec0b387d9e3eafee";
+  const authToken = "155f5f655b50da66ec3da2cca7dbfa43";
   const client = require("twilio")(accountSid, authToken);
 
   return client.messages
